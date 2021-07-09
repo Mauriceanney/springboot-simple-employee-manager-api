@@ -1,11 +1,18 @@
 package com.mauriceaney.opencompany.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * @author Maurice Aney
  * @date 09/07/2021 15:48
  */
+@Entity
 public class Employee {
 
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
