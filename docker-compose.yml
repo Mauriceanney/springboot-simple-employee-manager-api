@@ -16,7 +16,7 @@ services:
   web:
     build: .
     links:
-      - mysql
+      - database
     container_name: OPENC-Service
     restart: on-failure
     ports:
@@ -24,10 +24,10 @@ services:
     environment:
       - DB_PORT=3306
       - DB_NAME=openc
-      - DB_HOST=mysql
+      - DB_HOST=database
       - MYSQL_USER=openc-user
       - MYSQL_USER_PASSWORD=openc
       - JPA_SHOW_SQL=true
       #- SPRING_PROFILES_ACTIVE=prod
     depends_on:
-      - mysql
+      - database
