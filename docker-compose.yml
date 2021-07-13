@@ -9,10 +9,10 @@ services:
     ports:
       - 3307:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root1234
       - MYSQL_DATABASE=openc
-      - MYSQL_USER=openc-user
-      - MYSQL_PASSWORD=openc
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root1234
   web:
     build: .
     links:
@@ -25,8 +25,8 @@ services:
       - DB_PORT=3306
       - DB_NAME=openc
       - DB_HOST=database
-      - MYSQL_USER=openc-user
-      - MYSQL_USER_PASSWORD=openc
+      - MYSQL_USER=root
+      - MYSQL_USER_PASSWORD=root1234
       - JPA_SHOW_SQL=true
       #- SPRING_PROFILES_ACTIVE=prod
     depends_on:
