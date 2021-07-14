@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository;
  * @date 09/07/2021 15:54
  */
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    Employee findEmployeeById(Long Id);
-}
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {}

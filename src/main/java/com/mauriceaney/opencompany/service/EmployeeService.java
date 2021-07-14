@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Maurice Aney
@@ -29,13 +30,12 @@ public class EmployeeService {
     }
 
     /**
-     *
+     * Get one employee by given id
      * @param employeeId id of employee to find
      * @return Employee a single employee with given
      */
-    public Employee findEmployeeById(Long employeeId){
-        return employeeRepository.findEmployeeById(employeeId);
+    public Employee getEmployee(Long employeeId){
+        return employeeRepository.findById(employeeId).get();
     }
-
 
 }
