@@ -3,10 +3,7 @@ package com.mauriceaney.opencompany.controller;
 import com.mauriceaney.opencompany.model.Employee;
 import com.mauriceaney.opencompany.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +24,51 @@ public class EmployeeController {
     }
 
 
+    /**
+     * Get all employee
+     * @return List<Employee> a list of all employee
+     */
     @GetMapping
     public List<Employee> getAllEmployees(){
         return employeeService.getAllEmployees();
     }
 
-
+    /**
+     * Get single employee
+     * @param employeeId
+     * @return Employee a single employee by the given id
+     */
     @GetMapping("{employeeId}")
     public Employee getEmployee(@PathVariable Long employeeId){
         return employeeService.getEmployee(employeeId);
+    }
+
+    /**
+     * Add new employee
+     * @param employee
+     * @return Employee a newly added employee
+     */
+    @PostMapping
+    public Employee addEmployee(@RequestBody Employee employee){
+        return employeeService.addEmployee(employee);
+    }
+
+    /**
+     * Update employee
+     * @param employeeId id of employee to be update
+     * @param employee employee to be update
+     * @return Employee updated employee
+     */
+    @PutMapping("{employeeId}")
+    public Employee updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employee){
+        return employeeService.updateEmployee(employeeId, employee);
+    }
+
+    /**
+     * Delete employee
+     * @param employeeId id of employee to be delete
+     */
+    public void deleteEmployee(@PathVariable Long employeeId){
+        employeeService.deleteEmployee(employeeId);
     }
 }

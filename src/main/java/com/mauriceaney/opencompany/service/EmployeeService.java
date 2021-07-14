@@ -23,6 +23,7 @@ public class EmployeeService {
     }
 
     /**
+     * Get a list of all employees
      * @return List<Employee> employee list
      */
     public List<Employee> getAllEmployees(){
@@ -38,4 +39,33 @@ public class EmployeeService {
         return employeeRepository.findById(employeeId).get();
     }
 
+    /**
+     * Add new employee
+     * @param employee employee to add
+     * @return newly created employee
+     */
+    public Employee addEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+    /**
+     * Update employee
+     * @param employee employee to update
+     * @return updated employee
+     */
+    public Employee updateEmployee(Long employeeId, Employee employee) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+        /*if (!optionalEmployee.isPresent()){
+            return ;
+        }*/
+        return employeeRepository.save(employee);
+    }
+
+    /**
+     * Delete employee
+     * @param employeeId id of employee to be delete
+     */
+    public void deleteEmployee(Long employeeId) {
+         employeeRepository.deleteById(employeeId);
+    }
 }
