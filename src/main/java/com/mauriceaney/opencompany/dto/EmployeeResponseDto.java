@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
  * @author Maurice Aney
  * @date 21/07/2021 12:55
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 public class EmployeeResponseDto {
     private Long id;
     private String firstName;

@@ -1,6 +1,7 @@
 package com.mauriceaney.opencompany.controller;
 
-import com.mauriceaney.opencompany.model.Employee;
+import com.mauriceaney.opencompany.dto.EmployeeRequestDto;
+import com.mauriceaney.opencompany.dto.EmployeeResponseDto;
 import com.mauriceaney.opencompany.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 12/07/2021 17:30
  */
 @RestController
-@RequestMapping("/api/v1/employee/")
+@RequestMapping(path = "/api/v1/employee/")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -28,46 +29,47 @@ public class EmployeeController {
      * @return List<Employee> a list of all employee
      */
     @GetMapping
-    public List<Employee> getAllEmployees(){
+    public List<EmployeeResponseDto> getAllEmployees(){
         return employeeService.getAllEmployees();
     }
 
     /**
      * Get single employee
-     * @param employeeId
+     * @param employeeId id of employee
      * @return Employee a single employee by the given id
      */
-    @GetMapping("{employeeId}")
-    public Employee getEmployee(@PathVariable Long employeeId){
+    @GetMapping(path = "{employeeId}")
+    public EmployeeResponseDto getEmployee(@PathVariable Long employeeId){
         return employeeService.getEmployee(employeeId);
     }
 
     /**
      * Add new employee
-     * @param employee
+     * @param employeeRequestDto employee to be create
      * @return Employee a newly added employee
      */
     @PostMapping
-    public Employee addEmployee(@RequestBody Employee employee){
-        return employeeService.addEmployee(employee);
+    public EmployeeResponseDto addEmployee(@RequestBody EmployeeRequestDto employeeRequestDto){
+        return employeeService.addEmployee(employeeRequestDto);
     }
 
     /**
      * Update employee
      * @param employeeId id of employee to be update
-     * @param employee employee to be update
+     * @param employeeRequestDto employee to be update
      * @return Employee updated employee
      */
-    @PutMapping("{employeeId}")
-    public Employee updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employee){
-        return employeeService.updateEmployee(employeeId, employee);
+    @PutMapping(path = "{employeeId}")
+    public EmployeeResponseDto updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeRequestDto employeeRequestDto){
+        employeeRequestDto.setId(employeeId);
+        return employeeService.updateEmployee(employeeId, employeeRequestDto);
     }
 
     /**
      * Delete employee
      * @param employeeId id of employee to be delete
      */
-    @DeleteMapping("{employeeId}")
+    @DeleteMapping(path = "{employeeId}")
     public void deleteEmployee(@PathVariable Long employeeId){
         employeeService.deleteEmployee(employeeId);
     }
