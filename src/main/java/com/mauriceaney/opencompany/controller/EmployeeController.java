@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Maurice Aney
@@ -68,6 +67,7 @@ public class EmployeeController {
      * Delete employee
      * @param employeeId id of employee to be delete
      */
+    @DeleteMapping("{employeeId}")
     public void deleteEmployee(@PathVariable Long employeeId){
         employeeService.deleteEmployee(employeeId);
     }

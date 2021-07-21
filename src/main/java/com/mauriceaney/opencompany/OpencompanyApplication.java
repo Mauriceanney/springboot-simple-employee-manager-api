@@ -23,7 +23,7 @@ public class OpencompanyApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        employeeRepository.save(new Employee("Maurice", "Aney", "mauriceaney@gmail.com", "0748920823"));
-        employeeRepository.save(new Employee("Koffi", "Franck", "koffi.franck@gmail.com", "0748920823"));
+        employeeRepository.save(new Employee(1L, "Maurice", "Aney", "mauriceaney@gmail.com", "0748920823"));
+        employeeRepository.save(new Employee(2L, "Koffi", "Franck", "koffi.franck@gmail.com", "0748920823"));
     }
 }
