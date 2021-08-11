@@ -2,6 +2,7 @@ package com.mauriceaney.opencompany.service;
 
 import com.mauriceaney.opencompany.dto.EmployeeRequestDto;
 import com.mauriceaney.opencompany.dto.EmployeeResponseDto;
+import com.mauriceaney.opencompany.exception.RessourceNotFoundException;
 import com.mauriceaney.opencompany.mapper.EmployeeMapper;
 import com.mauriceaney.opencompany.model.Employee;
 import com.mauriceaney.opencompany.repository.EmployeeRepository;
@@ -34,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeResponseDto> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
-        return employees.stream().map((customer) -> employeeMapper.employeeToEmployeeResponseDto(customer)).collect(Collectors.toList());
+        return employees.stream().map(employeeMapper::employeeToEmployeeResponseDto).collect(Collectors.toList());
     }
 
     /**
@@ -43,8 +44,9 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @return Employee a single employee with given
      */
     @Override
-    public EmployeeResponseDto getEmployee(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId).get();
+    public EmployeeResponseDto getEmployee(Long employeeId) throws RessourceNotFoundException {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new RessourceNotFoundException("employee with id " +employeeId+ " not found !"));
         return employeeMapper.employeeToEmployeeResponseDto(employee);
     }
 
@@ -62,13 +64,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * Update employee
-     * @param employeeId employee id
      * @param employeeRequestDto   employee to update
      * @return updated employee
      */
     @Override
-    public EmployeeResponseDto updateEmployee(Long employeeId, EmployeeRequestDto employeeRequestDto) {
-        Employee employee = employeeMapper.employeeRequestDtoToEmployee(employeeRequestDto);
+    public EmployeeResponseDto updateEmployee(EmployeeRequestDto employeeRequestDto) throws RessourceNotFoundException{
+        Employee employee = employeeRepository.findById(employeeRequestDto.getId())
+                .orElseThrow(() -> new RessourceNotFoundException("Employee with id " + employeeRequestDto.getId().toString() + " not found !"));
+        employee = employeeMapper.employeeRequestDtoToEmployee(employeeRequestDto);
         Employee updatedEmployee = employeeRepository.save(employee);
         return employeeMapper.employeeToEmployeeResponseDto(updatedEmployee);
     }
@@ -78,7 +81,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employeeId id of employee to be delete
      */
     @Override
-    public void deleteEmployee(Long employeeId) {
-        employeeRepository.deleteById(employeeId);
+    public void deleteEmployee(Long employeeId) throws RessourceNotFoundException {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() ->new RessourceNotFoundException("Employee with id " + employeeId + " not found !"));
+        employeeRepository.deleteById(employee.getId());
     }
 }

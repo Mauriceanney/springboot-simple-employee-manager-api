@@ -4,7 +4,6 @@ import com.mauriceaney.opencompany.dto.EmployeeRequestDto;
 import com.mauriceaney.opencompany.dto.EmployeeResponseDto;
 import com.mauriceaney.opencompany.model.Employee;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 /**
@@ -15,4 +14,5 @@ import org.mapstruct.ReportingPolicy;
 public interface EmployeeMapper {
     EmployeeResponseDto employeeToEmployeeResponseDto(Employee employee);
     Employee employeeRequestDtoToEmployee(EmployeeRequestDto employeeRequestDto);
+    
 }

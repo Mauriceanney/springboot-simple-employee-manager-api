@@ -2,17 +2,22 @@ package com.mauriceaney.opencompany.controller;
 
 import com.mauriceaney.opencompany.dto.EmployeeRequestDto;
 import com.mauriceaney.opencompany.dto.EmployeeResponseDto;
+import com.mauriceaney.opencompany.exception.RessourceNotFoundException;
+import com.mauriceaney.opencompany.model.Employee;
 import com.mauriceaney.opencompany.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * @author Maurice Aney
  * @date 12/07/2021 17:30
  */
+
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/v1/employee/")
 public class EmployeeController {
 
@@ -39,7 +44,7 @@ public class EmployeeController {
      * @return Employee a single employee by the given id
      */
     @GetMapping(path = "{employeeId}")
-    public EmployeeResponseDto getEmployee(@PathVariable Long employeeId){
+    public EmployeeResponseDto getEmployee(@PathVariable Long employeeId) throws RessourceNotFoundException {
         return employeeService.getEmployee(employeeId);
     }
 
@@ -49,7 +54,7 @@ public class EmployeeController {
      * @return Employee a newly added employee
      */
     @PostMapping
-    public EmployeeResponseDto addEmployee(@RequestBody EmployeeRequestDto employeeRequestDto){
+    public EmployeeResponseDto addEmployee(@Valid @RequestBody EmployeeRequestDto employeeRequestDto){
         return employeeService.addEmployee(employeeRequestDto);
     }
 
@@ -60,9 +65,9 @@ public class EmployeeController {
      * @return Employee updated employee
      */
     @PutMapping(path = "{employeeId}")
-    public EmployeeResponseDto updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeRequestDto employeeRequestDto){
+    public EmployeeResponseDto updateEmployee(@PathVariable Long employeeId, @Valid @RequestBody EmployeeRequestDto employeeRequestDto) throws RessourceNotFoundException {
         employeeRequestDto.setId(employeeId);
-        return employeeService.updateEmployee(employeeId, employeeRequestDto);
+        return employeeService.updateEmployee(employeeRequestDto);
     }
 
     /**
@@ -70,7 +75,7 @@ public class EmployeeController {
      * @param employeeId id of employee to be delete
      */
     @DeleteMapping(path = "{employeeId}")
-    public void deleteEmployee(@PathVariable Long employeeId){
+    public void deleteEmployee(@PathVariable Long employeeId) throws RessourceNotFoundException {
         employeeService.deleteEmployee(employeeId);
     }
 }

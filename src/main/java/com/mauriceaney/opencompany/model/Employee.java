@@ -13,8 +13,8 @@ import javax.persistence.Id;
  * @author Maurice Aney
  * @date 09/07/2021 15:48
  */
-@Entity
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
@@ -25,4 +25,18 @@ public class Employee {
     private String lastName;
     private String email;
     private String phone;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
